@@ -1,6 +1,5 @@
 import csv                                                           #imports Python's built-in CSV module for reading structured text files
 from pathlib import Path                                             #imports Path for cleaner file path handling
-from pprint import pprint                                            #imports pprint to print nested dictionaries in a readable way
 
 
 def clean_numeric(value, as_int = False):                                           #cleans a value from the file and converts it into a number if possible
@@ -180,8 +179,6 @@ def main():                                                          #main funct
     }
 
     parsed, aggregated = parse_all_disease_files(files)              #parses and aggregates all disease files
-
-    pprint(aggregated["sepsis"]["01001"])                            #prints one sample county's aggregated sepsis data for testing
 
 
 if __name__ == "__main__":                                           #checks if this script is being run directly
