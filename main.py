@@ -13,6 +13,7 @@ from scoring import (                                                           
     pneumonia_rate_score,                                                           #imports the score function for average pneumonia crude mortality rate
     hypertension_rate_score,                                                        #imports the score function for average hypertension crude mortality rate
     final_ards_score,                                                               #imports the score function for the final ARDS trial prioritization score
+    filter_counties_by_population,                                                  #imports the filter function for counties with population greater than 250000
     get_disease_metric                                                              #imports the helper function used to safely retrieve disease metrics
 )
 
@@ -35,6 +36,11 @@ def load_county_data():                                                         
         county_data,                                                                #passes the master county dictionary
         required_diseases=["sepsis", "pneumonia"],                                  #requires sepsis and pneumonia because they are the primary ARDS proxy diseases
         min_valid_years=3                                                           #requires at least three valid death-count years for each required disease
+    )
+
+    county_data = filter_counties_by_population(                                    #filters out small counties that may not support enough trial enrollment volume
+        county_data,                                                                #passes the data-quality-filtered county dictionary
+        min_population=250000                                                       #requires at least 250,000 people in the county
     )
 
     county_data = add_ards_scores(county_data)                                      #adds raw, normalized, and final ARDS prioritization scores

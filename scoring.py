@@ -231,3 +231,16 @@ def get_top_ards_counties(county_data, top_n=20, min_valid_years=3):            
 
     return scored_counties, ranked_counties                                         #returns both the scored county dictionary and the ranked top counties
 
+
+def filter_counties_by_population(county_data, min_population=250000):              #filters out counties below a minimum population threshold
+
+    filtered_counties = {}                                                          #initializes a dictionary for counties that pass the population filter
+
+    for fips, county in county_data.items():                                        #loops through each county in the county dictionary
+
+        population = county.get("latest_population")                                #gets the latest available county population
+
+        if population is not None and population >= min_population:                 #checks if population is available and large enough
+            filtered_counties[fips] = county                                        #adds the county to the filtered dictionary
+
+    return filtered_counties                                                        #returns counties that pass the population threshold
