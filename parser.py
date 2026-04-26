@@ -1,5 +1,4 @@
 import csv                                                           #imports Python's built-in CSV module for reading structured text files
-from pathlib import Path                                             #imports Path for cleaner file path handling
 
 
 def clean_numeric(value, as_int = False):                                           #cleans a value from the file and converts it into a number if possible
@@ -168,19 +167,4 @@ def parse_all_disease_files(file_map):                               #parses and
         aggregated[disease_name] = disease_summary                   #stores aggregated data under the disease name
 
     return parsed, aggregated                                        #returns both detailed and aggregated disease dictionaries
-
-
-def main():                                                          #main function that runs when the script is executed directly
-
-    files = {                                                        #creates a dictionary mapping disease names to file paths
-        "sepsis": Path("Sepsis.txt"),                                #stores the file path for the sepsis data
-        "pneumonia": Path("Pneumonia.txt"),                          #stores the file path for the pneumonia data
-        "hypertension": Path("Hypertension.txt")                     #stores the file path for the hypertension data
-    }
-
-    parsed, aggregated = parse_all_disease_files(files)              #parses and aggregates all disease files
-
-
-if __name__ == "__main__":                                           #checks if this script is being run directly
-    main()                                                           #runs the main function
 
