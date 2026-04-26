@@ -100,7 +100,7 @@ def get_ranking_options():                                                      
 
 def get_top_n_choice():                                                             #asks the user how many counties to display
 
-    top_n_raw = input("How many counties should be shown? Press Enter for 20: ")     #gets user input for number of counties
+    top_n_raw = input("How many counties should be shown? (Default is 20): ")       #gets user input for number of counties
     top_n_raw = top_n_raw.strip()                                                   #removes extra whitespace from the input
 
     if top_n_raw == "":                                                             #checks if the user pressed Enter without typing a number
@@ -122,9 +122,9 @@ def get_top_n_choice():                                                         
 
 def print_ranked_counties(ranked_counties, score_function):                         #prints ranked counties in a readable table-like format
 
-    print()                                                                         #prints a blank line for readability
-    print("Rank | FIPS  | County                    | State | Population | Score    | Sepsis Deaths | Pneumonia Deaths | Sepsis Rate | Pneumonia Rate")  #prints the table header
-    print("-" * 135)                                                                #prints a separator line
+    print()                                                                                                                                                 #prints a blank line for readability
+    print("Rank | FIPS  | County                    | State | Population | Score    | Sepsis Deaths | Pneumonia Deaths | Sepsis Rate | Pneumonia Rate")     #prints the table header
+    print("-" * 135)                                                                                                                                        #prints a separator line
 
     for rank, ranked_item in enumerate(ranked_counties, start=1):                   #loops through ranked counties with rank numbers starting at 1
 
@@ -137,9 +137,9 @@ def print_ranked_counties(ranked_counties, score_function):                     
 
         score = score_function(county)                                              #calculates the score used for this ranking
 
-        sepsis_deaths = get_disease_metric(county, "sepsis", "average_deaths")      #gets average sepsis deaths for display
-        pneumonia_deaths = get_disease_metric(county, "pneumonia", "average_deaths")#gets average pneumonia deaths for display
-        sepsis_rate = get_disease_metric(county, "sepsis", "average_crude_rate")    #gets average sepsis crude rate for display
+        sepsis_deaths = get_disease_metric(county, "sepsis", "average_deaths")          #gets average sepsis deaths for display
+        pneumonia_deaths = get_disease_metric(county, "pneumonia", "average_deaths")    #gets average pneumonia deaths for display
+        sepsis_rate = get_disease_metric(county, "sepsis", "average_crude_rate")        #gets average sepsis crude rate for display
         pneumonia_rate = get_disease_metric(county, "pneumonia", "average_crude_rate")  #gets average pneumonia crude rate for display
 
         print(                                                                      #prints one formatted county row
