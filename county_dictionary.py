@@ -27,20 +27,24 @@ def build_county_dictionary(aggregated):                                 #builds
 
             existing_year = county["latest_year"]                        #gets the population year currently stored for this county
             new_year = summary["latest_year"]                            #gets the population year from the current disease summary
+            new_population = summary["latest_population"]                #gets the population value from the current disease summary
 
-            if existing_year is None or (new_year is not None and new_year > existing_year):    #checks if the current disease summary has a newer population year
-                county["latest_population"] = summary["latest_population"]                      #stores the newest available population value
-                county["latest_year"] = new_year                                                #stores the newest available population year
+            if new_year is not None and new_population is not None:      #checks if the current disease summary has usable population-year data
 
-            county["diseases"][disease_name] = {                          #stores the current disease summary inside the county's disease dictionary
-                "total_deaths": summary["total_deaths"],                  #stores total deaths across valid years for this disease
-                "average_deaths": summary["average_deaths"],              #stores average yearly deaths across valid years for this disease
-                "average_crude_rate": summary["average_crude_rate"],      #stores average crude mortality rate across valid years for this disease
-                "valid_death_years": summary["valid_death_years"],        #stores the number of valid years for death counts
-                "valid_rate_years": summary["valid_rate_years"],          #stores the number of valid years for crude mortality rates
-                "total_years": summary["total_years"],                    #stores the total number of years found for this county and disease
-                "missing_death_years": summary["missing_death_years"],    #stores the number of missing or unusable death-count years
-                "missing_rate_years": summary["missing_rate_years"]       #stores the number of missing or unusable crude-rate years
+                if existing_year is None or new_year > existing_year:    #checks if the current disease summary has the newest population year so far
+                    county["latest_population"] = new_population         #stores the newest available population value
+                    county["latest_year"] = new_year                     #stores the newest available population year
+
+            county["diseases"][disease_name] = {                         #stores the current disease summary inside the county's disease dictionary
+                "total_deaths": summary["total_deaths"],                 #stores total deaths across valid years for this disease
+                "average_deaths": summary["average_deaths"],             #stores average yearly deaths across valid years for this disease
+                "average_crude_rate": summary["average_crude_rate"],     #stores average crude mortality rate across valid years for this disease
+                "valid_death_years": summary["valid_death_years"],       #stores the number of valid years for death counts
+                "valid_rate_years": summary["valid_rate_years"],         #stores the number of valid years for crude mortality rates
+                "total_years": summary["total_years"],                   #stores the total number of years found for this county and disease
+                "missing_death_years": summary["missing_death_years"],   #stores the number of missing or unusable death-count years
+                "missing_rate_years": summary["missing_rate_years"]      #stores the number of missing or unusable crude-rate years
             }
 
-    return dict(county_data)                                              #converts the defaultdict back into a normal dictionary and returns it
+    return dict(county_data)                                             #converts the defaultdict back into a normal dictionary and returns it
+
